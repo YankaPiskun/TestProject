@@ -1,3 +1,3 @@
-#My test project on Djnago =)
+#My test project on Django =)
 
 Special for me
