@@ -25,4 +25,4 @@ urlpatterns = [
 ]
 
 if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL, documents_root=settings.MEDIA_ROOT) # alt+enter
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) # alt+enter
