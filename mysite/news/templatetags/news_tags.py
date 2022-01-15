@@ -10,7 +10,7 @@ def get_categories():
     return Category.objects.all()
 
 
-@register.inclusion_tag(name='news/list_categories.html')
-def show_categories():
-    categories = Category.objects.all()
-    return {"categories": categories}
+# @register.inclusion_tag(name='news/list_categories.html')
+# def show_categories():
+#     categories = Category.objects.all()
+#     return {"categories": categories}
