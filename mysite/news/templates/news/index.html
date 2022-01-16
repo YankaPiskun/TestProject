@@ -1,8 +1,9 @@
 {% extends 'base.html' %}
 
 {% block sidebar %} {% include 'inc/_sidebar.html' %} {% endblock %}
+{% block content %}
 
-{% block content %}  <div class="col-md-9">
+<div class="col-md-9">
        {% for item in news %}
 
         <div class="card mb-3">
