@@ -3,17 +3,21 @@ from .models import News, Category
 from .forms import NewsForm
 from django.views.generic import ListView, DetailView, CreateView
 from django.urls import reverse_lazy
+from .utils import MyMixin
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 
-class HomeNews(ListView):
+class HomeNews(MyMixin, ListView):
     model = News
     template_name = 'news/index.html'
     context_object_name = 'news'
+    mixin_prop = 'hello world'
     # extra_context = {'title': 'Главная'}
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
         context['title'] = 'Главная'
+        context['mixin_prop'] = self.get_prop()
         return context
 
     def get_queryset(self):
@@ -66,10 +70,12 @@ class ViewNews(DetailView):
 #     return render(request, template_name='news/view_news.html', context=context)
 
 
-class CreateNews(CreateView):
+class CreateNews(LoginRequiredMixin, CreateView):
     form_class = NewsForm
     template_name = 'news/add_news.html'
     success_url = reverse_lazy('home')
+    login_url = '/admin/'
+    raise_exception = True
 
 
 # def add_news(request):
