@@ -1,10 +1,11 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import News, Category
-from .forms import NewsForm
+from .forms import NewsForm, UserRegisterForm
 from django.views.generic import ListView, DetailView, CreateView
 from django.urls import reverse_lazy
 from .utils import MyMixin
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib import messages
 
 
 class HomeNews(MyMixin, ListView):
@@ -92,3 +93,23 @@ class CreateNews(LoginRequiredMixin, CreateView):
 #     }
 #     return render(request, template_name='news/add_news.html', context=context)
 
+
+def register(request):
+    if request.method == 'POST':
+        form = UserRegisterForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Вы успешно зарегестрировались')
+            return redirect('login')
+        else:
+            messages.error(request, 'Ошибка регистрации')
+    else:
+        form = UserRegisterForm()
+    context = {
+        'form': form
+    }
+    return render(request, template_name='news/register.html', context=context)
+
+
+def login(request):
+    return render(request, template_name='news/login.html')
